@@ -1,6 +1,7 @@
 using DevFreela.API.ExceptionHandler;
 using DevFreela.Application;
 using DevFreela.Application.Models;
+using DevFreela.Infrastructure;
 using DevFreela.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,19 +14,22 @@ builder.Services.Configure<FreelanceTotalCostConfig>(
     builder.Configuration.GetSection("FreelanceTotalCostConfig")
        );
 
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
+
 //builder.Services.AddDbContext<DevFreelaDbContext>(o => o.UseInMemoryDatabase("DevFreelaDb"));
 
-var connectionString = builder.Configuration.GetConnectionString("DevFreelaCs");
+//var connectionString = builder.Configuration.GetConnectionString("DevFreelaCs");
 
-builder.Services.AddDbContext<DevFreelaDbContext>(o => o.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<DevFreelaDbContext>(o => o.UseSqlServer(connectionString));
 
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 //builder.Services.AddScoped<IProjectService, ProjectService>();
 
-builder.Services
-    .AddApplication();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
