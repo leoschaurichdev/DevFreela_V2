@@ -19,11 +19,10 @@ namespace DevFreela.Application.Commands.UserCommands.InsertUser
         {
             var passwordHash = _authService.ComputeSha256Hash(request.Password);
 
-            var user = new User(request.FullName, request.Email, request.BirthDate, request.Password, request.Role);
+            var user = new User(request.FullName, request.Email, request.BirthDate, passwordHash, request.Role);
 
 
             await _repository.Add(user);
-            await _repository.Update(user);
 
 
             return ResultViewModel<int>.Success(user.Id);

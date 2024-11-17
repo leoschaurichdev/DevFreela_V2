@@ -34,7 +34,7 @@ namespace DevFreela.Infrastructure.Auth
 
             public string GenerateJwtToken(string email, string role)
         {
-            var issuer = _configuration["Jwt:issuer"];
+            var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
             var key = _configuration["Jwt:Key"];
 

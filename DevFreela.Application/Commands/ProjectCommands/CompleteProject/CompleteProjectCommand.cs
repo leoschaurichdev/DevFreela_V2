@@ -8,7 +8,7 @@ namespace DevFreela.Application.Commands.ProjectCommands.CompleteProject
     {
         public CompleteProjectCommand(int id)
         {
-            Id = Id;
+            Id = id;
         }
         public int Id { get; set; }
 
