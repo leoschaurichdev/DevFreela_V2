@@ -1,37 +1,42 @@
-﻿using DevFreela.Application.Models;
-using DevFreela.Core.Entities;
-using DevFreela.Infrastructure.Persistence;
+﻿using DevFreela.Application.Commands.SkillCommands.InsertSkill;
+using DevFreela.Application.Queries.UserQueries.GetUserById;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers
 {
-    [Route("api/skills")]
     [ApiController]
+    [Route("api/skills")]
+    [Authorize]
     public class SkillsController : ControllerBase
     {
-        private readonly DevFreelaDbContext _context;
-        public SkillsController(DevFreelaDbContext context)
+        private readonly IMediator _mediator;
+        public SkillsController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
-
-        // GET api/skills
+        //GETALL api/skills
         [HttpGet]
-        public IActionResult GetAll()
+        [Authorize(Roles = "client, freelancer")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var skills = _context.Skills.ToList();
+            var result = await _mediator.Send(new GetUserByIdQuery(id));
 
-            return Ok(skills);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
         }
 
-        // POST api/skills
+        //POST api/skills
         [HttpPost]
-        public IActionResult Post(CreateSkillInputModel model)
+        [Authorize(Roles = "client, freelancer")]
+        public async Task<IActionResult> Post(InsertSkillCommand command)
         {
-            var skill = new Skill(model.Description);
-
-            _context.Skills.Add(skill);
-            _context.SaveChanges();
+            var result = await _mediator.Send(command);
 
             return NoContent();
         }

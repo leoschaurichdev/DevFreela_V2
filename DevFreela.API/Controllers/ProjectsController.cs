@@ -1,12 +1,11 @@
-﻿using DevFreela.Application.Commands.CompleteProject;
-using DevFreela.Application.Commands.DeleteProject;
-using DevFreela.Application.Commands.InsertComment;
-using DevFreela.Application.Commands.InsertProject;
-using DevFreela.Application.Commands.StartProject;
-using DevFreela.Application.Commands.UpdateProject;
-using DevFreela.Application.Queries.GetAllProjects;
-using DevFreela.Application.Queries.GetProjectById;
-
+﻿using DevFreela.Application.Commands.ProjectCommands.CompleteProject;
+using DevFreela.Application.Commands.ProjectCommands.DeleteProject;
+using DevFreela.Application.Commands.ProjectCommands.InsertComment;
+using DevFreela.Application.Commands.ProjectCommands.InsertProject;
+using DevFreela.Application.Commands.ProjectCommands.StartProject;
+using DevFreela.Application.Commands.ProjectCommands.UpdateProject;
+using DevFreela.Application.Queries.ProjectQueries.GetAllProjects;
+using DevFreela.Application.Queries.ProjectQueries.GetProjectById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

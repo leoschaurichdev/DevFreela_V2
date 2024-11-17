@@ -1,70 +1,108 @@
-﻿using DevFreela.Application.Models;
-using DevFreela.Core.Entities;
-using DevFreela.Infrastructure.Persistence;
+﻿using DevFreela.Application.Commands.UserCommands.DeleteUser;
+using DevFreela.Application.Commands.UserCommands.InsertUser;
+using DevFreela.Application.Commands.UserCommands.LoginUser;
+using DevFreela.Application.Commands.UserCommands.UpdateUser;
+using DevFreela.Application.Queries.UserQueries.GetAllUsers;
+using DevFreela.Application.Queries.UserQueries.GetUserById;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace DevFreela.API.Controllers
 {
     [ApiController]
     [Route("api/users")]
-    public class UsersController : ControllerBase
+    [Authorize]
+    public class UserController : ControllerBase
     {
-        private readonly DevFreelaDbContext _context;
-        public UsersController(DevFreelaDbContext context)
+        private readonly IMediator _mediator;
+        public UserController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        //GET api/users
+        [HttpGet]
+        [Authorize(Roles = "client, freelancer")]
+        public async Task<IActionResult> GetAll(string search = "")
         {
-            var user = _context.Users
-                .Include(u => u.Skills)
-                    .ThenInclude(u => u.Skill)
-                .SingleOrDefault(u => u.Id == id);
+            var query = new GetAllUserQuery();
 
-            if (user is null)
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        //GETById api/users/id
+        [HttpGet("{id}")]
+        [Authorize(Roles = "client, freelancer")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _mediator.Send(new GetUserByIdQuery(id));
+
+            if (!result.IsSuccess)
             {
-                return NotFound();
+                return BadRequest(result.Message);
             }
 
-            var model = UserViewModel.FromEntity(user);
-
-            return Ok(model);
+            return Ok(result);
         }
 
-        // POST api/users
+        //POST api/users
         [HttpPost]
-        public IActionResult Post(CreateUserInputModel model)
+        [AllowAnonymous]
+        [Authorize(Roles = "client")]
+        public async Task<IActionResult> Post(InsertUserCommand command)
         {
-            var user = new User(model.FullName, model.Email, model.BirthDate);
+            var result = await _mediator.Send(command);
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
+        }
+
+        //PUT api/users/id
+        [HttpPut("{id}")]
+        [Authorize(Roles = "client")]
+        public async Task<IActionResult> Put(int id, UpdateUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
 
             return NoContent();
         }
 
-        [HttpPost("{id}/skills")]
-        public IActionResult PostSkills(int id, UserSkillsInputModel model)
+        //DELETE api/users/id
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "client")]
+        public async Task<IActionResult> Delete(int id)
         {
-            var userSkills = model.SkillIds.Select(s => new UserSkill(id, s)).ToList();
+            var result = await _mediator.Send(new DeleteUserCommand(id));
 
-            _context.UserSkills.AddRange(userSkills);
-            _context.SaveChanges();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
 
             return NoContent();
         }
 
-        [HttpPut("{id}/profile-picture")]
-        public IActionResult PostProfilePicture(int id, IFormFile file)
+        [HttpPut("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginUserCommand command)
         {
-            var description = $"FIle: {file.FileName}, Size: {file.Length}";
+            var loginUserViewModel = await _mediator.Send(command);
 
-            // Processar a imagem
+            if (loginUserViewModel == null)
+            {
+                return BadRequest();
+            }
 
-            return Ok(description);
+            return Ok(loginUserViewModel);
+
         }
     }
 }
