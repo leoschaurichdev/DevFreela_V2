@@ -1,10 +1,6 @@
 using DevFreela.API.ExceptionHandler;
 using DevFreela.Application;
-using DevFreela.Core.Repositories;
-using DevFreela.Core.Services;
 using DevFreela.Infrastructure;
-using DevFreela.Infrastructure.Auth;
-using DevFreela.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -20,24 +16,6 @@ builder.Services.AddProblemDetails();
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
-
-//builder.Services.Configure<FreelanceTotalCostConfig>(
-//    builder.Configuration.GetSection("FreelanceTotalCostConfig")
-//       );
-
-
-//builder.Services.AddDbContext<DevFreelaDbContext>(o => o.UseInMemoryDatabase("DevFreelaDb"));
-
-//var connectionString = builder.Configuration.GetConnectionString("DevFreelaCs");
-
-//builder.Services.AddDbContext<DevFreelaDbContext>(o => o.UseSqlServer(connectionString));
-
-//builder.Services.AddScoped<IProjectService, ProjectService>();
-
-builder.Services.AddScoped<IUserRepository, UserRepository>(); 
-builder.Services.AddScoped<ISkillRepository, SkillRepository>();
-builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -90,7 +68,6 @@ builder.Services
         (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-
 
 var app = builder.Build();
 

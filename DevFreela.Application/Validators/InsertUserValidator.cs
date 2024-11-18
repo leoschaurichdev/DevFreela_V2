@@ -1,17 +1,12 @@
-﻿using DevFreela.Application.Models;
+﻿using DevFreela.Application.Commands.UserCommands.InsertUser;
 using FluentValidation;
-using FluentValidation.AspNetCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DevFreela.Application.Validators
 {
-    public class CreateUserValidator : AbstractValidator<CreateUserInputModel>
+    public class InsertUserValidator : AbstractValidator<InsertUserCommand>
     {
-        public CreateUserValidator()
+        public InsertUserValidator()
         {
             RuleFor(u => u.Email)
                 .EmailAddress()

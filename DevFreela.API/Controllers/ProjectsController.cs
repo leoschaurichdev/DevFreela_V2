@@ -55,7 +55,6 @@ namespace DevFreela.API.Controllers
         public async Task<IActionResult> Post(InsertProjectCommand command)
         {
             var result = await _mediator.Send(command);
-            ;
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
         }
 

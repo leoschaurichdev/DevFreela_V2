@@ -1,4 +1,4 @@
-﻿using DevFreela.Application.Queries.ProjectQueries.GetAllProjects;
+﻿using DevFreela.Application.Queries.GetAllProjects;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
 using NSubstitute;

@@ -30,10 +30,5 @@ namespace DevFreela.Application.Models
             => new ProjectViewModel(entity.Id, entity.Title, entity.Description,
                 entity.IdClient, entity.IdFreelancer, entity.Client.FullName, entity.Freelancer.FullName,
                 entity.TotalCost, entity.Comments);
-
-
     }
-
-
 }
-
