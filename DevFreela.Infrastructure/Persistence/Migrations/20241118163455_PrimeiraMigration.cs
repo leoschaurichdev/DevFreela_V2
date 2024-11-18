@@ -36,6 +36,8 @@ namespace DevFreela.Infrastructure.Persistence.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -115,7 +117,6 @@ namespace DevFreela.Infrastructure.Persistence.Migrations
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IdProject = table.Column<int>(type: "int", nullable: false),
                     IdUser = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -129,11 +130,11 @@ namespace DevFreela.Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ProjectComments_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_ProjectComments_Users_IdUser",
+                        column: x => x.IdUser,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -142,9 +143,9 @@ namespace DevFreela.Infrastructure.Persistence.Migrations
                 column: "IdProject");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectComments_UserId",
+                name: "IX_ProjectComments_IdUser",
                 table: "ProjectComments",
-                column: "UserId");
+                column: "IdUser");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_IdClient",

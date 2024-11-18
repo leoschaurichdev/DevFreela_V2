@@ -80,7 +80,8 @@ namespace DevFreela.Infrastructure.Persistence
 
                     e.Property(p => p.TotalCost)
                       .HasColumnType("decimal(18,2)");
-                });
+          
+    });
 
             base.OnModelCreating(builder);
         }

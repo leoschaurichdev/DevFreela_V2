@@ -10,7 +10,9 @@ namespace DevFreela.API.ExceptionHandler
             var details = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
-                Title = "Server Error"
+                Title = "Veio pra cá " + "                     " + exception.StackTrace + "                   " + exception.Message + "                           " + exception.InnerException
+
+
             };
 
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
