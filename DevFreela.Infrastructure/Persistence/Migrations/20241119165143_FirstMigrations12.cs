@@ -5,7 +5,7 @@
 namespace DevFreela.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class AddLoginColums : Migration
+    public partial class FirstMigrations12 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

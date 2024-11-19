@@ -8,7 +8,6 @@ namespace DevFreela.Infrastructure.Persistence
         public DevFreelaDbContext(DbContextOptions<DevFreelaDbContext> options)
             : base(options)
         {
-
         }
 
         public DbSet<Project> Projects { get; set; }
@@ -19,69 +18,63 @@ namespace DevFreela.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder
-                .Entity<Skill>(e =>
-                {
-                    e.HasKey(s => s.Id);
-                });
+            builder.Entity<Skill>(e =>
+            {
+                e.HasKey(s => s.Id);
+            });
 
-            builder
-                .Entity<UserSkill>(e =>
-                {
-                    e.HasKey(us => us.Id);
+            builder.Entity<UserSkill>(e =>
+            {
+                e.HasKey(us => us.Id);
 
-                    e.HasOne(u => u.Skill)
-                        .WithMany(u => u.UserSkills)
-                        .HasForeignKey(s => s.IdSkill)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
+                e.HasOne(u => u.Skill)
+                    .WithMany(u => u.UserSkills)
+                    .HasForeignKey(s => s.IdSkill)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
-            builder
-                .Entity<ProjectComment>(e =>
-                {
-                    e.HasKey(p => p.Id);
+            builder.Entity<ProjectComment>(e =>
+            {
+                e.HasKey(p => p.Id);
 
-                    e.HasOne(p => p.Project)
-                        .WithMany(p => p.Comments)
-                        .HasForeignKey(p => p.IdProject)
-                        .OnDelete(DeleteBehavior.Restrict);
+                e.HasOne(p => p.Project)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(p => p.IdProject)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    e.HasOne(e => e.User)
-                        .WithMany(u=>u.Comments)
-                        .HasForeignKey(p=>p.IdUser)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
+                e.HasOne(e => e.User)
+                    .WithMany(u => u.Comments)
+                    .HasForeignKey(p => p.IdUser)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
-            builder
-                .Entity<User>(e =>
-                {
-                    e.HasKey(u => u.Id);
+            builder.Entity<User>(e =>
+            {
+                e.HasKey(u => u.Id);
 
-                    e.HasMany(u => u.Skills)
-                        .WithOne(us => us.User)
-                        .HasForeignKey(us => us.IdUser)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
+                e.HasMany(u => u.Skills)
+                    .WithOne(us => us.User)
+                    .HasForeignKey(us => us.IdUser)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
-            builder
-                .Entity<Project>(e =>
-                {
-                    e.HasKey(p => p.Id);
+            builder.Entity<Project>(e =>
+            {
+                e.HasKey(p => p.Id);
 
-                    e.HasOne(p => p.Freelancer)
-                        .WithMany(f => f.FreelanceProjects)
-                        .HasForeignKey(p => p.IdFreelancer)
-                        .OnDelete(DeleteBehavior.Restrict);
+                e.HasOne(p => p.Freelancer)
+                    .WithMany(f => f.FreelanceProjects)
+                    .HasForeignKey(p => p.IdFreelancer)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    e.HasOne(p => p.Client)
-                        .WithMany(c => c.OwnedProjects)
-                        .HasForeignKey(p => p.IdClient)
-                        .OnDelete(DeleteBehavior.Restrict);
+                e.HasOne(p => p.Client)
+                    .WithMany(c => c.OwnedProjects)
+                    .HasForeignKey(p => p.IdClient)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    e.Property(p => p.TotalCost)
-                      .HasColumnType("decimal(18,2)");
-          
-    });
+                e.Property(p => p.TotalCost)
+                  .HasColumnType("decimal(18,2)");
+            });
 
             base.OnModelCreating(builder);
         }
