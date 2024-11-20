@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DevFreela.Infrastructure.Persistence.Migrations
+namespace DevFreela.Infrastructure.Migrations
 {
     [DbContext(typeof(DevFreelaDbContext))]
     partial class DevFreelaDbContextModelSnapshot : ModelSnapshot
