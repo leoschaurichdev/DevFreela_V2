@@ -1,5 +1,5 @@
 ﻿using DevFreela.Application.Commands.SkillCommands.InsertSkill;
-using DevFreela.Application.Queries.UserQueries.GetUserById;
+using DevFreela.Application.Queries.UsersQueries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,7 +1,7 @@
 ﻿using DevFreela.Application.Models;
 using MediatR;
 
-namespace DevFreela.Application.Queries.SkillQueries.GetSkillById
+namespace DevFreela.Application.Queries.GetSkillById
 {
     public class GetSkillByIdQuery : IRequest<ResultViewModel<SkillViewModel>>
     {

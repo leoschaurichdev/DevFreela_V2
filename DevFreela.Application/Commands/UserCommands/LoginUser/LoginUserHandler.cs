@@ -1,10 +1,9 @@
-﻿using DevFreela.Application.Commands.UserCommands.LoginUser;
-using DevFreela.Application.Models;
+﻿using DevFreela.Application.Models;
 using DevFreela.Core.Repositories;
 using DevFreela.Core.Services;
 using MediatR;
 
-namespace DevFreela.Application.Commands.UsersCommands.LoginUser
+namespace DevFreela.Application.Commands.UserCommands.LoginUser
 {
     public class LoginUserHandler : IRequestHandler<LoginUserCommand, LoginUserViewModel>
     {

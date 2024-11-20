@@ -2,8 +2,8 @@
 using DevFreela.Application.Commands.UserCommands.InsertUser;
 using DevFreela.Application.Commands.UserCommands.LoginUser;
 using DevFreela.Application.Commands.UserCommands.UpdateUser;
-using DevFreela.Application.Queries.UserQueries.GetAllUsers;
-using DevFreela.Application.Queries.UserQueries.GetUserById;
+using DevFreela.Application.Queries.UsersQueries.GetAllUsers;
+using DevFreela.Application.Queries.UsersQueries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
