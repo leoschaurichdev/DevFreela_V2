@@ -17,10 +17,6 @@
             FreelanceProjects = [];
             Comments = [];
         }
-        protected User()
-        {
-
-        }
 
         public string FullName { get; private set; }
         public string Email { get; private set; }

@@ -92,7 +92,7 @@ namespace DevFreela.API.Controllers
 
         [HttpPut("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginUserCommand command)
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
             var loginUserViewModel = await _mediator.Send(command);
 

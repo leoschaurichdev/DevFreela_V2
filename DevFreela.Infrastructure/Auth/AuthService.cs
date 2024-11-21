@@ -36,16 +36,16 @@ namespace DevFreela.Infrastructure.Auth
         {
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
-            var key = _configuration["Jwt:Key"];
+            var key = _configuration["Jwt: Key"];
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>
             {
                 new Claim ("userName" , email),
                 new Claim(ClaimTypes.Role, role)
-
 
             };
 
