@@ -59,6 +59,11 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             return project;
         }
 
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
         public async Task Update(Project project)
         {
             _context.Projects.Update(project);

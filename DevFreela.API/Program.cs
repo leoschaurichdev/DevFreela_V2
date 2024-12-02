@@ -17,6 +17,8 @@ builder.Services
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+builder.Services.AddHttpClient();
+
 // Register the DbContext with the connection string
 //builder.Services.AddDbContext<DevFreelaDbContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("DevFreelaCs")));

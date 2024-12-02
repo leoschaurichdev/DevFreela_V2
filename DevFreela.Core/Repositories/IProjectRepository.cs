@@ -11,6 +11,7 @@ namespace DevFreela.Core.Repositories
         Task Update(Project project);
         Task AddComment(ProjectComment comment);
         Task<bool> Exists(int id);
+        Task SaveChangesAsync();
 
     }
 }

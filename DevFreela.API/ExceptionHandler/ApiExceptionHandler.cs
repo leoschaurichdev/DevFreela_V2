@@ -10,7 +10,10 @@ namespace DevFreela.API.ExceptionHandler
             var details = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
-                Title = "Veio pra cá " + "                     " + exception.StackTrace + "                   " + exception.Message + "                           " + exception.InnerException
+                Title = "Não encontrado!" 
+                
+                
+                //+ "                     " + exception.StackTrace + "                   " + exception.Message + "                           " + exception.InnerException
 
 
             };
