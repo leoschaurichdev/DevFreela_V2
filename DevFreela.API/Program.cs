@@ -1,5 +1,6 @@
 using DevFreela.API.ExceptionHandler;
 using DevFreela.Application;
+using DevFreela.Application.Consumers;
 using DevFreela.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +17,8 @@ builder.Services
 
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.AddHostedService<PaymentApprovedConsumer>();
 
 builder.Services.AddHttpClient();
 
